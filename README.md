@@ -1,3 +1,6 @@
+For execute this project need to install cypress using: 
+npm install cypress
+
 If you have to run saperate file having multiple 'It' block you need to use cmd:
 Syntax:
 * npx cypress run --spec filePath 
@@ -19,4 +22,3 @@ If you want to see the script test run on browser please use
 If you want to run script on Dashboard
 1. npm run test-dashboard
  
- //npx cypress run --spec cypress/e2e/Regression/OnlineCheckInSettings.spec.cy.js
