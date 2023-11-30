@@ -1,6 +1,3 @@
-For execute this project need to install cypress using: 
-npm install cypress
-
 If you have to run saperate file having multiple 'It' block you need to use cmd:
 Syntax:
 * npx cypress run --spec filePath 
@@ -10,7 +7,7 @@ If you want to run on specific browser like chrome then please add...
 * npx cypress run --spec filePath --browser chrome
 
 Complete CMD example:
-1. npx cypress run --spec cypress/e2e/Regression/LandingPages.spec.cy.js --browser chrome
+1. npx cypress run --spec cypress/e2e/Regression/OnlineCheckInSettings.spec.cy.js --browser chrome
 
 Now We are going to run complete project using simple cmd...
 Please use this Customize cmd to run complete Soute:
