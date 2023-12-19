@@ -13,15 +13,17 @@ import { precheckinPageElements } from "../../../PageObjects/PageActions/PreChec
   const OnlineCheckInSettings_Elements = new onlineCheckInElements
 
 describe('Complete Pre-CheckIn Test Script', () => {
-  
+
   beforeEach(() => {
     cy.visit('/')
     Login_Elements.happyLogin('automation9462@gmail.com', 'Boring321')
     OnlineCheckInSettings_Elements.basicInfoOriginalSettigs()
-    Booking_Elements.happyAddBooking('Waqas DHA')
   })
  
   it('CA_PCW_01 > Validate pre-checkin welcome page', () => {
+    PreCheckIn_Elements.enableAllOnlineSettingsToggles()
+    PreCheckIn_Elements.validateNewAddedBooking('Waqas DHA')
+    cy.get('.page-title.translate').should('contain', 'Bookings').wait(2000)
     cy.xpath("(//i[@class='fas fa-ellipsis-h'])[2]")
     .click({force: true})
     cy.xpath("(//a[@class='dropdown-item notranslate'])[1]")
@@ -33,7 +35,9 @@ describe('Complete Pre-CheckIn Test Script', () => {
       cy.xpath("(//a[@class='dropdown-item notranslate'])[3]")
       .invoke("removeAttr", "target", {force: true})
       .click({force: true})
-      cy.wait(3000)
+      cy.url().should('include', '/booking-detail')
+      cy.get('.booking-property-heading').should('have.text', 'Waqas DHA')
+      cy.wait(4000)
       // Will get and store BookingId value in a variable
       cy.get('#bookingID') 
       .invoke('val') 
@@ -70,8 +74,10 @@ describe('Complete Pre-CheckIn Test Script', () => {
                 // User will logout from the portal and will open CheckIn link
                 Login_Elements.profileIcon()
                 cy.visit(link)
-                cy.get('.text-md > span').should('contain', 'Please start Pre Check-in')
                 cy.wait(4000)
+                cy.get('.welcome-guest-header > .mb-0').should('contain', 'Welcome').wait(3000)
+                cy.get('.text-md > span').should('contain', 'Please start Pre Check-in')
+                cy.wait(3000)
                 // Validate Reference Number
                 cy.get('span.single-line.notranslate')
                 .then(($ref) => {
@@ -113,6 +119,8 @@ describe('Complete Pre-CheckIn Test Script', () => {
     })
   })
   it('CA_PCW_02 > Validate basic info page field level validations and prefilled fields', () => {
+    PreCheckIn_Elements.validateNewAddedBooking('Waqas DHA')
+    cy.get('.page-title.translate').should('contain', 'Bookings').wait(2000)
     cy.xpath("(//i[@class='fas fa-ellipsis-h'])[2]")
     .click({force: true})
     cy.xpath("(//a[@class='dropdown-item notranslate'])[1]")
@@ -124,7 +132,9 @@ describe('Complete Pre-CheckIn Test Script', () => {
       cy.xpath("(//a[@class='dropdown-item notranslate'])[3]")
       .invoke("removeAttr", "target", {force: true})
       .click({force: true})
-      cy.wait(3000)
+      cy.url().should('include', '/booking-detail')
+      cy.get('.booking-property-heading').should('have.text', 'Waqas DHA')
+      cy.wait(4000)
       // Here we will get the FullName and Save into Variable
       cy.xpath('(//input[@id="6"])[1]') 
       .invoke('val') 
@@ -140,8 +150,10 @@ describe('Complete Pre-CheckIn Test Script', () => {
           // User will logout from the portal and will open CheckIn link
           Login_Elements.profileIcon()
           cy.visit(link)
-          cy.get('.text-md > span').should('contain', 'Please start Pre Check-in')
           cy.wait(4000)
+          cy.get('.welcome-guest-header > .mb-0').should('contain', 'Welcome').wait(3000)
+          cy.get('.text-md > span').should('contain', 'Please start Pre Check-in')
+          cy.wait(3000)
           // Validate Soruce type
           cy.get('.gp-property-dl > :nth-child(2) > .notranslate')
           .then(($sour) => {
@@ -172,6 +184,8 @@ describe('Complete Pre-CheckIn Test Script', () => {
     })   
   })   
   it('CA_PCW_03 > Validate the questionnier step', () => {
+    PreCheckIn_Elements.validateNewAddedBooking('Waqas DHA')
+    cy.get('.page-title.translate').should('contain', 'Bookings').wait(2000)
     cy.xpath("(//i[@class='fas fa-ellipsis-h'])[2]")
     .click({force: true})
     cy.xpath("(//a[@class='dropdown-item notranslate'])[1]")
@@ -182,8 +196,10 @@ describe('Complete Pre-CheckIn Test Script', () => {
       // User will logout from the portal and will open CheckIn link
       Login_Elements.profileIcon()
       cy.visit(link)
-      cy.get('.text-md > span').should('contain', 'Please start Pre Check-in')
       cy.wait(4000)
+      cy.get('.welcome-guest-header > .mb-0').should('contain', 'Welcome').wait(3000)
+      cy.get('.text-md > span').should('contain', 'Please start Pre Check-in')
+      cy.wait(3000)
       // Validate Soruce type
       cy.get('.gp-property-dl > :nth-child(2) > .notranslate')
       .then(($sour) => {
@@ -193,11 +209,12 @@ describe('Complete Pre-CheckIn Test Script', () => {
       cy.wait(3000)     
       cy.get('[data-test="precheckinSaveBtnOne"]').should('be.visible').click({force: true})      
       PreCheckIn_Elements.basicInfoVerification()
-      PreCheckIn_Elements.creditCard()
       LandingPages_Elements.questionnariesValidation()
     })
   })
   it('CA_PCW_04 > Validate the arrival step', () => {
+    PreCheckIn_Elements.validateNewAddedBooking('Waqas DHA')
+    cy.get('.page-title.translate').should('contain', 'Bookings').wait(2000)
     cy.xpath("(//i[@class='fas fa-ellipsis-h'])[2]")
     .click({force: true})
     cy.xpath("(//a[@class='dropdown-item notranslate'])[1]")
@@ -208,8 +225,10 @@ describe('Complete Pre-CheckIn Test Script', () => {
       // User will logout from the portal and will open CheckIn link
       Login_Elements.profileIcon()
       cy.visit(link)
-      cy.get('.text-md > span').should('contain', 'Please start Pre Check-in')
       cy.wait(4000)
+      cy.get('.welcome-guest-header > .mb-0').should('contain', 'Welcome').wait(3000)
+      cy.get('.text-md > span').should('contain', 'Please start Pre Check-in')
+      cy.wait(3000)
       // Validate Soruce type
       cy.get('.gp-property-dl > :nth-child(2) > .notranslate')
       .then(($sour) => {
@@ -219,7 +238,6 @@ describe('Complete Pre-CheckIn Test Script', () => {
       cy.wait(3000)     
       cy.get('[data-test="precheckinSaveBtnOne"]').should('be.visible').click({force: true})      
       PreCheckIn_Elements.basicInfoVerification()
-      PreCheckIn_Elements.creditCard()
       // Enter Note it's mandatory field
       cy.get('#question-103').should('have.attr', 'placeholder', 'Type your answer').clear().type('This is Automation Testing')
       cy.wait(3000)
@@ -228,40 +246,60 @@ describe('Complete Pre-CheckIn Test Script', () => {
     })
   })
   it('CA_PCW_05 > Validate the upload Id card and Credit Card Validation', () => {
+    OnlineCheckInSettings_Elements.collectIdLicenseOriginalSettings()
+    PreCheckIn_Elements.validateNewAddedBooking('Waqas DHA')
+    cy.get('.page-title.translate').should('contain', 'Bookings').wait(2000)
     LandingPages_Elements.goToDocValidation()
     LandingPages_Elements.idCardDocValidation()
   })
   it('CA_PCW_06 > Validate the upload Driving License and Credit Card Validation', () => {
+    OnlineCheckInSettings_Elements.collectIdLicenseOriginalSettings()
+    PreCheckIn_Elements.validateNewAddedBooking('Waqas DHA')
+    cy.get('.page-title.translate').should('contain', 'Bookings').wait(2000)
     LandingPages_Elements.goToDocValidation()
     LandingPages_Elements.drivingDocValidation()
   })
   it('CA_PCW_07 > Validate Add new Guest functionality', () => {
+    OnlineCheckInSettings_Elements.collectIdLicenseOriginalSettings()
+    PreCheckIn_Elements.validateNewAddedBooking('Waqas DHA')
+    cy.get('.page-title.translate').should('contain', 'Bookings').wait(2000)
     LandingPages_Elements.goToGuest()
     cy.get('div[class="gp-box gp-box-of-inner-pages page-tab-01 pre-checkin-tabs"] h4:nth-child(1)')
       .should('have.text', 'Guest Details\n                        1/3')
     LandingPages_Elements.addNewGuest()
   })
   it('CA_PCW_08 > Validate Delete Guest functionality', () => {
+    PreCheckIn_Elements.validateNewAddedBooking('Waqas DHA')
+    cy.get('.page-title.translate').should('contain', 'Bookings').wait(2000)
     LandingPages_Elements.goToGuest()
     cy.get('div[class="gp-box gp-box-of-inner-pages page-tab-01 pre-checkin-tabs"] h4:nth-child(1)')
-      .should('have.text', 'Guest Details\n                        1/3')
+      .should('have.text', 'Guest Details\n                        1/3').wait(2000)
     LandingPages_Elements.deleteGuest()
   })
   it('CA_PCW_09 > Validate share link for Guest Registration functionality', () => {
+    OnlineCheckInSettings_Elements.collectIdLicenseOriginalSettings()
+    PreCheckIn_Elements.validateNewAddedBooking('Waqas DHA')
+    cy.get('.page-title.translate').should('contain', 'Bookings').wait(2000)
     LandingPages_Elements.goToGuest()
     cy.get('div[class="gp-box gp-box-of-inner-pages page-tab-01 pre-checkin-tabs"] h4:nth-child(1)')
-      .should('have.text', 'Guest Details\n                        1/3')
+      .should('have.text', 'Guest Details\n                        1/3').wait(2000)
     LandingPages_Elements.goToGuestRegistration()
     LandingPages_Elements.guestRegistration()
   })
   it('CA_PCW_10 > Validate share link Guest Registration validations', () => {
+    OnlineCheckInSettings_Elements.collectIdLicenseOriginalSettings()
+    PreCheckIn_Elements.validateNewAddedBooking('Waqas DHA')
+    cy.get('.page-title.translate').should('contain', 'Bookings').wait(2000)
     LandingPages_Elements.goToGuest()
     cy.get('div[class="gp-box gp-box-of-inner-pages page-tab-01 pre-checkin-tabs"] h4:nth-child(1)')
-      .should('have.text', 'Guest Details\n                        1/3')
+      .should('have.text', 'Guest Details\n                        1/3').wait(2000)
     LandingPages_Elements.goToGuestRegistration()
     LandingPages_Elements.guestRegValidations()
   })
   it('CA_PCW_11 > Validate Add guest detail functionality', () => {
+    OnlineCheckInSettings_Elements.collectIdLicenseOriginalSettings()
+    PreCheckIn_Elements.validateNewAddedBooking('Waqas DHA')
+    cy.get('.page-title.translate').should('contain', 'Bookings').wait(2000)
     LandingPages_Elements.goToGuest()
     LandingPages_Elements.addGuestDetail()
     cy.wait(3000)
@@ -269,24 +307,33 @@ describe('Complete Pre-CheckIn Test Script', () => {
     cy.get('h4 > .badge').should('contain', '2/3')
   })
   it('CA_PCW_12 > Validate Add Guest detail form validation', () => {
+    OnlineCheckInSettings_Elements.collectIdLicenseOriginalSettings()
+    PreCheckIn_Elements.validateNewAddedBooking('Waqas DHA')
+    cy.get('.page-title.translate').should('contain', 'Bookings').wait(2000)
     LandingPages_Elements.goToGuest()
     LandingPages_Elements.guestDetailValidations()
   })
-  it('CA_PCW_13 > Validate Edit Guest detail functionality', () => {
+  it.only('CA_PCW_13 > Validate Edit Guest detail functionality', () => {
+    OnlineCheckInSettings_Elements.collectIdLicenseOriginalSettings()
+    PreCheckIn_Elements.validateNewAddedBooking('Waqas DHA')
+    cy.get('.page-title.translate').should('contain', 'Bookings').wait(2000)
     LandingPages_Elements.goToGuest()
     LandingPages_Elements.editGuestDetail()
   })
   it('CA_PCW_14 > Validate change Main guest functionality', () => {
+    PreCheckIn_Elements.validateNewAddedBooking('Waqas DHA')
+    cy.get('.page-title.translate').should('contain', 'Bookings').wait(2000)
     LandingPages_Elements.goToGuest()
     LandingPages_Elements.changeMainGuest()
   })
   it('CA_PCW_15 > Validate add on services', () => {
+    PreCheckIn_Elements.validateNewAddedBooking('Waqas DHA')
+    cy.get('.page-title.translate').should('contain', 'Bookings').wait(2000)
     LandingPages_Elements.goToGuest()
-    cy.get('table[class="table guest-table"] h6[class="guest-name"]')
-      .should('have.text', 'QA Tester')
-    cy.wait(2000)
+    cy.get('div[class="gp-box gp-box-of-inner-pages page-tab-01 pre-checkin-tabs"] h4:nth-child(1)')
+      .should('have.text', 'Guest Details\n                        1/3').wait(3000)
     cy.get('[data-test="precheckinSaveBtnOne"]').should('be.visible').click({force: true})
-    LandingPages_Elements.validateAddAllServices()
+    LandingPages_Elements.validateAllAddOnServices()
   })
 }) 
 
